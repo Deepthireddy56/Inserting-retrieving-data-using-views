@@ -45,6 +45,26 @@ def display_webpages(request):
     d={'QSWO':QSWO}
     return render(request,'display_webpages.html',d)
 
+def update_webpages(request):
+    webpage.objects.filter(topic_name='Hockey').update(url='https://alex.in')
+    webpage.objects.filter(topic_name='Cricket').update(name='Virat Kohli')
+    # webpage.objects.filter(name='Alex').update(url='https://alex.in')
+   # webpage.objects.update_or_create(name='Virat Kohli',defaults={'url':'https://king_kohli.com'})
+    webpage.objects.filter(topic_name='Foot Ball').update(name='Ronaldo')
+    # webpage.objects.filter(name='Virat Kohli').update(topic_name='Volley Ball')
+
+    #webpage.objects.update_or_create(name='Virat Kohli',defaults={'url':'https://king_kohli.com'})
+    #webpage.objects.update_or_create(name='Rohit',defaults={'url':'https://hitman.com'})
+    CTO=Topic.objects.get(topic_name='Cricket')
+    CTO.save()
+    webpage.objects.update_or_create(name='Rohit',defaults={'topic_name':CTO,'url':'https://hitman.com'})
+
+
+    
+    QSWO=webpage.objects.all()
+    d={'QSWO':QSWO}
+    return render(request,'display_webpages.html',d)
+
 def insert_webpage(request):
     tn=input('Enter topic_name: ')
     to=Topic.objects.get(topic_name=tn)
@@ -83,5 +103,15 @@ def Insert_Access_Records(request):
     d={'QSAO':QSAO}
     return render(request,'display_access_records.html',d)
 
+def delete_Access_Records(request):
+    Access_Records.objects.filter(author='Teja').delete()
+    Access_Records.objects.all().delete()
 
-    
+
+
+    QSAO=Access_Records.objects.all()
+    d={'QSAO':QSAO}
+    return render(request,'display_access_records.html',d)
+
+
+        
